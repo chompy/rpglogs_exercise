@@ -9,9 +9,9 @@ export default class ResultsCharacterParses extends Component
     renderResults()
     {
         let out = [];
-        for (let i in this.props.data) {
-            let data = this.props.data[i];
-            let key = 'results_' + data.reportID;
+        for (let i in this.props.data.parses) {
+            let data = this.props.data.parses[i];
+            let key = 'results_' + i;
             out.push(<CharacterParse key={key} data={data}></CharacterParse>);
         }
         return out;
@@ -20,7 +20,7 @@ export default class ResultsCharacterParses extends Component
     render()
     {
         return <div className="parses row">
-            <CharacterInfo data={this.props.data[0]}></CharacterInfo>
+            <CharacterInfo data={this.props.data}></CharacterInfo>
             <div className="parse head row">
                 <div className="parse-encounter-name" title={parseEncounterName}>{parseEncounterName}</div>
                 <div className="parse-class" title={parseClass}>{parseClass}</div>

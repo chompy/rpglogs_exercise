@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Connectors\FFXIVLodestoneConnector;
 use App\Http\Controllers\Controller;
-use App\Services\RPGLogsConnector;
+use App\Connectors\RPGLogsConnector;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -13,13 +14,18 @@ class AppApiController extends Controller
     /** @var RPGLogsConnector */
     protected $rpgLogsConnector;
 
+    /** @var FFXIVLodestoneConnector */
+    protected $lodestoneConnector;
+
     /**
      * @param RPGLogsConnector $rpgLogsConnector
      */
     public function __construct(
-        RPGLogsConnector $rpgLogsConnector
+        RPGLogsConnector $rpgLogsConnector,
+        FFXIVLodestoneConnector $lodestoneConnector
     ) {
         $this->rpgLogsConnector = $rpgLogsConnector;
+        $this->lodestoneConnector = $lodestoneConnector;
     }
 
     /**
@@ -35,13 +41,22 @@ class AppApiController extends Controller
         if (!$characterName || !$serverName || !$serverRegion) {
             throw new \InvalidArgumentException('Missing expected parameter. (character, server, region)');
         }
-        $res = $this->rpgLogsConnector->fetchCharacterParses(
+        $parses = $this->rpgLogsConnector->fetchCharacterParses(
             $characterName, $serverName, $serverRegion
+        );
+
+        $avatarURL = $this->lodestoneConnector->fetchCharacterAvatarURL(
+            $characterName,
+            $serverName
         );
         return response()->json([
             'success' => true,
             'type' => 'character_parses',
-            'data' => $res
+            'data' => [
+                'characterAvatarURL' => $avatarURL,
+                'serverRegion' => strtoupper(trim($serverRegion)),
+                'parses' => $parses
+            ]
         ]);
     }
 

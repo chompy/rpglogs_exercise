@@ -1,30 +1,21 @@
 <?php
 
-namespace App\Services;
+namespace App\Connectors;
 
-use App\Exceptions\RPGLogsResponseException;
+use App\Exceptions\ConnectorResponseException;
 use Illuminate\Http\Client\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
-class RPGLogsConnector
+abstract class AbstractConnector
 {
 
-    /** @var string */
-    const QUERY_PARAM_API_KEY = 'api_key';
-
     /** @var int */
-    const CACHE_TTL = 120;
-
-    /** @var string */
-    const CHARACTER_PARSES_PATH = '/v1/parses/character/{characterName}/{serverName}/{serverRegion}';
+    const CACHE_TTL = 360;
 
     /** @var string */
     private $domain;
-
-    /** @var string */
-    private $key;
 
     /**
      * @param array $config
@@ -32,7 +23,6 @@ class RPGLogsConnector
     public function __construct(array $config)
     {
         $this->domain = isset($config['domain']) ? $config['domain'] : '';
-        $this->key = isset($config['key']) ? $config['key'] : '';
     }
 
     /**
@@ -71,7 +61,6 @@ class RPGLogsConnector
      */
     protected function buildQuery(array $query = []) : array
     {
-        $query[self::QUERY_PARAM_API_KEY] = $this->key;
         return $query;
     }
 
@@ -82,7 +71,7 @@ class RPGLogsConnector
      */
     protected function getCacheKey(string $path, array $query = []) : string
     {
-        return 'rpglogs_resp_' . hash('sha256', $path . http_build_query($query));
+        return 'connector_resp_' . hash('sha256', $path . http_build_query($query));
     }
 
     /**
@@ -98,16 +87,16 @@ class RPGLogsConnector
             return;
         }
         $cacheKey = $this->getCacheKey($path, $query);
-        Cache::put($cacheKey, $resp->json(), self::CACHE_TTL);
+        Cache::put($cacheKey, $resp->body(), self::CACHE_TTL);
     }
 
     /**
      * Retrieve cached response.
      * @param string $path
      * @param array $query
-     * @return array|null
+     * @return string|null
      */
-    protected function getCachedResponse(string $path, array $query = []) : ?array
+    protected function getCachedResponse(string $path, array $query = []) : ?string
     {
         $cacheKey = $this->getCacheKey($path, $query);
         if (Cache::has($cacheKey)) {
@@ -117,20 +106,20 @@ class RPGLogsConnector
     }
 
     /**
-     * Make a request to RPGLogs API.
+     * Make a request to remote API.
      * @param string $path
      * @param string $method
      * @param array $query
      * @param array $body
-     * @throws RPGLogsResponseException
-     * @return array
+     * @throws ConnectorResponseException
+     * @return string
      */
     protected function request(
         string $path,
         string $method = Request::METHOD_GET,
         array $query = [],
         array $body = []
-    ) : array {
+    ) : string {
 
         // used cached response if available
         if ($method == Request::METHOD_GET) {
@@ -154,9 +143,9 @@ class RPGLogsConnector
         }
         // invalid response
         if (!$resp->ok()) {
-            $e = new RPGLogsResponseException(
+            $e = new ConnectorResponseException(
                 sprintf(
-                    'Request to %s returned unexpected %d status code.',
+                    'Request to %s returned %d status code.',
                     $url,
                     $resp->status()
                 )
@@ -165,33 +154,8 @@ class RPGLogsConnector
             throw $e;
         }
         // success
-        return $resp->json();
+        return $resp->body();
     }
 
-    /**
-     * Fetch recent character parses.
-     * @param string $characterName
-     * @param string $serverName
-     * @param string $serverRegion
-     * @return array
-     */
-    public function fetchCharacterParses(
-        string $characterName, 
-        string $serverName, 
-        string $serverRegion
-    ) : array {
-
-        $path = $this->resolvePath(self::CHARACTER_PARSES_PATH, [
-            'characterName' => $characterName,
-            'serverName' => $serverName,
-            'serverRegion' => $serverRegion
-        ]);
-        $query = ['includeCombatantInfo' => true];
-        return $this->request(
-            $path,
-            Request::METHOD_GET,
-            $query
-        );
-    }
 
 }

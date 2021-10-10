@@ -2262,14 +2262,48 @@ var CharacterInfo = /*#__PURE__*/function (_Component) {
   }
 
   _createClass(CharacterInfo, [{
-    key: "getClassIcon",
-    value: function getClassIcon() {
-      return 'https://assets.rpglogs.com/img/ff/icons/' + this.props.data.spec + '.png';
+    key: "getClasses",
+    value: function getClasses() {
+      var out = [];
+
+      for (var i in this.props.data.parses) {
+        var parse = this.props.data.parses[i];
+
+        if (out.indexOf(parse.spec) == -1) {
+          out.push(parse.spec);
+        }
+      }
+
+      return out;
     }
   }, {
-    key: "getServerRegion",
-    value: function getServerRegion() {
-      return this.props.data.server + ' (NA)';
+    key: "getClassIcon",
+    value: function getClassIcon(name) {
+      return 'https://assets.rpglogs.com/img/ff/icons/' + name + '.png';
+    }
+  }, {
+    key: "renderClasses",
+    value: function renderClasses() {
+      var out = [];
+      var classes = this.getClasses();
+
+      for (var i in classes) {
+        var className = classes[i];
+        var key = "class_" + i;
+        out.push( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
+          className: "class-icon",
+          src: this.getClassIcon(className),
+          alt: className,
+          title: className
+        }, key));
+      }
+
+      return out;
+    }
+  }, {
+    key: "getServer",
+    value: function getServer() {
+      return this.props.data.parses[0].server + ' (' + this.props.data.serverRegion + ')';
     }
   }, {
     key: "render",
@@ -2279,28 +2313,23 @@ var CharacterInfo = /*#__PURE__*/function (_Component) {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
           className: "character-portrait",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
-            src: "https://img2.finalfantasyxiv.com/f/4f36905f9252dacc597fa93a0a65c55c_ba22853447012a24cee115315d6a5bebfc0_96x96.jpg?1631480144",
-            alt: "c"
+            src: this.props.data.characterAvatarURL,
+            alt: this.props.data.parses[0].characterName,
+            title: this.props.data.parses[0].characterName
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
           className: "character-details",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
             className: "character-name",
-            title: this.props.data.characterName,
-            children: this.props.data.characterName
+            title: this.props.data.parses[0].characterName,
+            children: this.props.data.parses[0].characterName
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
             className: "character-server",
-            title: this.getServerRegion(),
-            children: this.getServerRegion()
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+            title: this.getServer(),
+            children: this.getServer()
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
             className: "character-class",
-            title: this.props.data.spec,
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
-              className: "class-icon",
-              src: this.getClassIcon(),
-              alt: this.props.data.spec,
-              title: this.props.data.spec
-            }), this.props.data.spec]
+            children: this.renderClasses()
           })]
         })]
       });
@@ -2387,6 +2416,22 @@ var CharacterParse = /*#__PURE__*/function (_Component) {
       return this.props.data.rank + '/' + this.props.data.outOf;
     }
   }, {
+    key: "getDuration",
+    value: function getDuration() {
+      var mins = Math.floor(this.props.data.duration / 1000 / 60);
+      var secs = Math.floor(this.props.data.duration / 1000 % 60);
+      return (mins < 10 ? '0' : '') + mins + ':' + (secs < 10 ? '0' : '') + secs;
+    }
+  }, {
+    key: "getDate",
+    value: function getDate() {
+      var date = new Date(this.props.data.startTime);
+      var month = date.toLocaleString('default', {
+        month: 'short'
+      });
+      return month + ' ' + date.getDate() + ', ' + date.getFullYear();
+    }
+  }, {
     key: "parsePercentClassName",
     value: function parsePercentClassName() {
       var percent = this.getPercentile();
@@ -2442,14 +2487,16 @@ var CharacterParse = /*#__PURE__*/function (_Component) {
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
           className: "parse-damage",
-          title: this.props.data.total,
-          children: this.props.data.total
+          title: this.props.data.total.toFixed(1),
+          children: this.props.data.total.toFixed(1)
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
           className: "parse-duration",
-          children: "9:15"
+          title: this.getDuration(),
+          children: this.getDuration()
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
           className: "parse-date",
-          children: "Jan 1, 2021"
+          title: this.getDate(),
+          children: this.getDate()
         })]
       });
     }
@@ -2733,7 +2780,6 @@ var Results = /*#__PURE__*/function (_Component) {
   _createClass(Results, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      //super.componentDidMount();
       window.addEventListener('api:load', this.handleApiLoad);
       window.addEventListener('api:error', this.handleApiResults);
       window.addEventListener('api:success', this.handleApiResults);
@@ -2872,9 +2918,9 @@ var ResultsCharacterParses = /*#__PURE__*/function (_Component) {
     value: function renderResults() {
       var out = [];
 
-      for (var i in this.props.data) {
-        var data = this.props.data[i];
-        var key = 'results_' + data.reportID;
+      for (var i in this.props.data.parses) {
+        var data = this.props.data.parses[i];
+        var key = 'results_' + i;
         out.push( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_character_parse__WEBPACK_IMPORTED_MODULE_1__["default"], {
           data: data
         }, key));
@@ -2888,7 +2934,7 @@ var ResultsCharacterParses = /*#__PURE__*/function (_Component) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
         className: "parses row",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_character_info__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          data: this.props.data[0]
+          data: this.props.data
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
           className: "parse head row",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {

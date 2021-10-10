@@ -19,8 +19,6 @@ export default class Results extends Component
 
     componentDidMount()
     {
-        //super.componentDidMount();
-
         window.addEventListener('api:load', this.handleApiLoad)
         window.addEventListener('api:error', this.handleApiResults);
         window.addEventListener('api:success', this.handleApiResults)

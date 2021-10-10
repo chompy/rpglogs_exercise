@@ -3,29 +3,58 @@ import React, { Component } from 'react'
 /** Display information about a character. */
 export default class CharacterInfo extends Component
 {
-
-    getClassIcon()
+    
+    getClasses()
     {
-        return 'https://assets.rpglogs.com/img/ff/icons/' + this.props.data.spec + '.png';
+        let out = [];
+        for (let i in this.props.data.parses) {
+            let parse = this.props.data.parses[i];
+            if (out.indexOf(parse.spec) == -1) {
+                out.push(parse.spec);
+            }
+        }
+        return out;
     }
 
-    getServerRegion()
+    getClassIcon(name)
     {
-        return this.props.data.server + ' (NA)';
+        return 'https://assets.rpglogs.com/img/ff/icons/' + name + '.png';
+    }
+
+    renderClasses()
+    {
+        let out = [];
+        let classes = this.getClasses();
+        for (let i in classes) {
+            let className = classes[i];
+            let key = "class_" + i;
+            out.push(
+                <img key={key} className="class-icon" src={this.getClassIcon(className)} alt={className} title={className} />
+            );
+        }
+        return out;
+    }
+
+    getServer()
+    {
+        return this.props.data.parses[0].server + ' (' + this.props.data.serverRegion + ')';
     }
 
     render()
     {
         return <div className="character row">
             <div className="character-portrait">
-                <img src="https://img2.finalfantasyxiv.com/f/4f36905f9252dacc597fa93a0a65c55c_ba22853447012a24cee115315d6a5bebfc0_96x96.jpg?1631480144" alt="c" />
+                <img
+                    src={this.props.data.characterAvatarURL}
+                    alt={this.props.data.parses[0].characterName}
+                    title={this.props.data.parses[0].characterName}
+                />
             </div>
             <div className="character-details">
-                <div className="character-name" title={this.props.data.characterName}>{this.props.data.characterName}</div>
-                <div className="character-server" title={this.getServerRegion()}>{this.getServerRegion()}</div>
-                <div className="character-class" title={this.props.data.spec}>
-                    <img className="class-icon" src={this.getClassIcon()} alt={this.props.data.spec} title={this.props.data.spec} />
-                    {this.props.data.spec}
+                <div className="character-name" title={this.props.data.parses[0].characterName}>{this.props.data.parses[0].characterName}</div>
+                <div className="character-server" title={this.getServer()}>{this.getServer()}</div>
+                <div className="character-class">
+                    {this.renderClasses()}
                 </div>
             </div>
         </div>;

@@ -24,6 +24,20 @@ export default class CharacterParse extends Component
         return this.props.data.rank + '/' + this.props.data.outOf;
     }
 
+    getDuration()
+    {
+        let mins = Math.floor(this.props.data.duration / 1000 / 60); 
+        let secs = Math.floor((this.props.data.duration / 1000) % 60);
+        return (mins < 10 ? '0' : '') + mins + ':' + (secs < 10 ? '0' : '') + secs;
+    }
+
+    getDate()
+    {
+        let date = new Date(this.props.data.startTime);
+        let month = date.toLocaleString('default', {month: 'short'});
+        return month + ' ' + date.getDate() + ', ' + date.getFullYear();
+    }
+
     parsePercentClassName()
     {
         let percent = this.getPercentile();
@@ -62,14 +76,14 @@ export default class CharacterParse extends Component
                 <span className={this.parsePercentClassName()} title={this.getPercentile() + '%'}>{this.getPercentile()}</span>
                 <span className="parse-rank-value" title={this.getRank()}>({this.getRank()})</span>
             </div>
-            <div className="parse-damage" title={this.props.data.total}>
-                {this.props.data.total}
+            <div className="parse-damage" title={this.props.data.total.toFixed(1)}>
+                {this.props.data.total.toFixed(1)}
             </div>
-            <div className="parse-duration">
-                9:15
+            <div className="parse-duration" title={this.getDuration()}>
+                {this.getDuration()}
             </div>
-            <div className="parse-date">
-                Jan 1, 2021
+            <div className="parse-date" title={this.getDate()}>
+                {this.getDate()}
             </div>
         </div>;
     }

@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Services\RPGLogsConnector;
+use App\Connectors\RPGLogsConnector;
 use Illuminate\Console\Command;
 
 /**

@@ -4,7 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Http\Client\Response;
 
-class RPGLogsResponseException extends \Exception
+class ConnectorResponseException extends \Exception
 {
 
     /** @var Response */
