@@ -59,7 +59,7 @@ class RPGLogsConnector
     protected function resolvePath(string $path, array $params = []) : string
     {
         foreach ($params as $key => $val) {
-            $path = str_replace('{' . $key . '}', trim($val), $path);
+            $path = str_replace('{' . $key . '}', rawurlencode(trim($val)), $path);
         }
         return trim($path);
     }

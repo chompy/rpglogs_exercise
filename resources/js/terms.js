@@ -4,13 +4,13 @@ export const formCharacterName = 'Character Name';
 export const formServerName = 'Server Name';
 export const formRegionName = 'Region';
 
-// encounter table head
-export const encounterName = 'Raid';
-export const encounterClass = 'Job';
-export const encounterRank = 'Rank'
-export const encounterDamage = 'DPS';
-export const encounterDuration = 'Duration';
-export const encounterDate = 'Date';
+// parse table head
+export const parseEncounterName = 'Raid';
+export const parseClass = 'Job';
+export const parseRank = 'Rank'
+export const parseDamage = 'DPS';
+export const parseDuration = 'Duration';
+export const parseDate = 'Date';
 
 /**
  * Sample character names.

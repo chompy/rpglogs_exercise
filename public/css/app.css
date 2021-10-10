@@ -521,6 +521,16 @@ form input[type=submit], form input[type=button], form button {
   background-color: #1c1c1c;
   border: 1px solid #343434;
 }
+form .error-message {
+  color: #cc2d2d;
+  font-size: 12px;
+  font-style: italic;
+  margin-left: 5px;
+  display: none;
+}
+form .error-message.has-error {
+  display: inline-block;
+}
 
 .character .character-portrait {
   display: inline-block;
@@ -550,7 +560,7 @@ form input[type=submit], form input[type=button], form button {
   margin-right: 5px;
 }
 
-.encounter .encounter-col, .encounter .encounter-date, .encounter .encounter-duration, .encounter .encounter-damage, .encounter .encounter-rank, .encounter .encounter-class, .encounter .encounter-name {
+.parse .parse-col, .parse .parse-date, .parse .parse-duration, .parse .parse-damage, .parse .parse-rank, .parse .parse-class, .parse .parse-encounter-name {
   display: inline-block;
   margin-right: 1%;
   white-space: nowrap;
@@ -558,53 +568,53 @@ form input[type=submit], form input[type=button], form button {
   text-overflow: ellipsis;
   line-height: 32px;
 }
-.encounter .encounter-name {
+.parse .parse-encounter-name {
   width: 25%;
 }
-.encounter .encounter-name .encounter-icon {
+.parse .parse-encounter-name .encounter-icon {
   max-width: 32px;
   max-height: 32px;
   border: 1px solid #343434;
   vertical-align: -11px;
   margin-right: 10px;
 }
-.encounter .encounter-class {
+.parse .parse-class {
   width: 5%;
   text-align: center;
 }
-.encounter .encounter-class .class-icon {
+.parse .parse-class .class-icon {
   vertical-align: -4px;
   max-width: 100%;
   max-height: 100%;
 }
-.encounter .encounter-rank {
+.parse .parse-rank {
   width: 20%;
   text-align: center;
 }
-.encounter .encounter-rank .encounter-rank-percent {
+.parse .parse-rank .parse-rank-percent {
   font-weight: bold;
 }
-.encounter .encounter-rank .encounter-rank-value {
+.parse .parse-rank .parse-rank-value {
   font-size: 10px;
   vertical-align: 2px;
   margin-left: 4px;
 }
-.encounter .encounter-damage {
+.parse .parse-damage {
   width: 15%;
   text-align: center;
 }
-.encounter .encounter-duration {
+.parse .parse-duration {
   width: 10%;
   text-align: center;
 }
-.encounter .encounter-date {
+.parse .parse-date {
   width: 15%;
   text-align: center;
 }
-.encounter.head {
+.parse.head {
   border-bottom: 1px solid #e7e7e7;
 }
-.encounter.head .encounter-col, .encounter.head .encounter-name, .encounter.head .encounter-class, .encounter.head .encounter-rank, .encounter.head .encounter-damage, .encounter.head .encounter-duration, .encounter.head .encounter-date {
+.parse.head .parse-col, .parse.head .parse-encounter-name, .parse.head .parse-class, .parse.head .parse-rank, .parse.head .parse-damage, .parse.head .parse-duration, .parse.head .parse-date {
   font-weight: bold;
 }
 

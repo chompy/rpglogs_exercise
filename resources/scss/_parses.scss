@@ -1,5 +1,5 @@
-.encounter {
-    .encounter-col {
+.parse {
+    .parse-col {
         display: inline-block;
         margin-right: 1%;
         white-space: nowrap;
@@ -7,8 +7,8 @@
         text-overflow: ellipsis;
         line-height: 32px;
     }
-    .encounter-name {
-        @extend .encounter-col;
+    .parse-encounter-name {
+        @extend .parse-col;
         width: 25%;
         .encounter-icon {
             max-width: 32px;
@@ -18,8 +18,8 @@
             margin-right: 10px;
         }
     }
-    .encounter-class {
-        @extend .encounter-col;
+    .parse-class {
+        @extend .parse-col;
         width: 5%;
         text-align: center;
         .class-icon {
@@ -28,37 +28,37 @@
             max-height: 100%;
         }
     }
-    .encounter-rank {
-        @extend .encounter-col;
+    .parse-rank {
+        @extend .parse-col;
         width: 20%;
         text-align: center;
-        .encounter-rank-percent {
+        .parse-rank-percent {
             font-weight: bold;
         }
-        .encounter-rank-value {
+        .parse-rank-value {
             font-size: 10px;
             vertical-align: 2px;
             margin-left: 4px;
         }
     }
-    .encounter-damage {
-        @extend .encounter-col;
+    .parse-damage {
+        @extend .parse-col;
         width: 15%;
         text-align: center;
     }   
-    .encounter-duration {
-        @extend .encounter-col;
+    .parse-duration {
+        @extend .parse-col;
         width: 10%;
         text-align: center;
     }
-    .encounter-date {
-        @extend .encounter-col;
+    .parse-date {
+        @extend .parse-col;
         width: 15%;
         text-align: center;
     }
     &.head {
         border-bottom: 1px solid $fg-color;
-        .encounter-col {
+        .parse-col {
             font-weight: bold;
         }
     }
