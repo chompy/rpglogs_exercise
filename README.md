@@ -3,6 +3,7 @@
 This is the take-home coding exercise for the RPGLogs Full Stack Developer interview as completed by me, Nathan Ogden.
 For this exercise I choose to source my data from FFLogs as opposed to WarcraftLogs as I'm intimately familar with FFLogs.
 
+This was my first time using Laravel so that slowed me down a little bit. I am however very familar and comfortable with Symfony and there were quite a few similarities, both of them are MVC frameworks afterall. 
 
 
 ## Run Locally With Docker + Platform.CC
@@ -38,18 +39,22 @@ A lot of this repo contains Laravel boilerplate code and isn't very relevant to 
 
 Features that were't part of the original spec...
 
-- Display character avatar via fetch from FFXIV Lodestone site.
+- Display character avatar via fetch from FFXIV Lodestone site. (This however is very slow and makes fetches slow.)
 - Displays list of previous fetched character parses using database.
 - Use Redis to cache parses and character avatar.
+- Small touches here and there, random names displayed in placeholder of fetch form, etc.
 
 
 ## Missing Features
 
-Features I would have added if I had more time...
+Features/things I would have added if I had more time...
 
 - Ability to use the browser's back/foward buttons to load previous queries.
 - Ability to access character parses via sharable URL.
+- Paginate character parse list.
 - Display more information about the character (stats, gear, etc) (this data wasn't available via the FFLogs API).
 - Limit previous queries to one entry per character+server combination.
 - Fix display of data for mobile, hide/shrink less relevant data so that most relevant data can remain prominent.
+- Better error handling.
 - General beautifcation, cool animations, etc.
+- Clean up of unneeded boilerplate code.
