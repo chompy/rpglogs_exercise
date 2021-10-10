@@ -1,0 +1,46 @@
+.row {
+    margin-top: 10px;
+    .col {
+        display: inline-block;
+        vertical-align: top;
+        margin-right: 1%;
+    }
+    .col-1 {
+        @extend .col;
+        width: 9%;
+    }
+    .col-2 {
+        @extend .col;
+        width: 21%;
+    }
+    .col-3 {
+        @extend .col;
+        width: 33%;
+    }
+    .col-4 {
+        @extend .col;
+        width: 46%;
+    }
+    .col-5 {
+        @extend .col;
+        width: 57%;
+    }
+    .col-6 {
+        @extend .col;
+        width: 69%;
+    }
+    .col-7 {
+        @extend .col;
+        width: 81%;
+    }
+    .col-8 {
+        @extend .col;
+        width: 93%;
+    }
+    @media screen and (max-width: 580px) {
+        .col {
+            width: 100%;
+            margin-right: 0;
+        }
+    }
+}

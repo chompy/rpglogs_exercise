@@ -1,0 +1,36 @@
+// site theme
+$bg-color: #1c1c1c;
+$fg-color: #e7e7e7;
+$border-color: #343434;
+$panel-bg-color: #001a31;
+
+// parse colors
+$parse-artifact: #e5cc80;
+$parse-astounding: #e268a8;
+$parse-legendary: #ff8000;
+$parse-epic: #a335ee;
+$parse-rare: #0070ff;
+$parse-uncommon: #1eff00;
+$parse-common: #666;
+
+.artifact {
+    color: $parse-artifact;
+}
+.astounding {
+    color: $parse-astounding;
+}
+.legendary {
+    color: $parse-legendary;
+}
+.epic {
+    color: $parse-epic;
+}
+.rare {
+    color: $parse-rare;
+}
+.uncommon {
+    color: $parse-uncommon;
+}
+.common {
+    color: $parse-common;
+}

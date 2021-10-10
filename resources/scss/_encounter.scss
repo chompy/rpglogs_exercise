@@ -1,0 +1,65 @@
+.encounter {
+    .encounter-col {
+        display: inline-block;
+        margin-right: 1%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 32px;
+    }
+    .encounter-name {
+        @extend .encounter-col;
+        width: 25%;
+        .encounter-icon {
+            max-width: 32px;
+            max-height: 32px;
+            border: 1px solid $border-color;
+            vertical-align: -11px;
+            margin-right: 10px;
+        }
+    }
+    .encounter-class {
+        @extend .encounter-col;
+        width: 5%;
+        text-align: center;
+        .class-icon {
+            vertical-align: -4px;
+            max-width: 100%;
+            max-height: 100%;
+        }
+    }
+    .encounter-rank {
+        @extend .encounter-col;
+        width: 20%;
+        text-align: center;
+        .encounter-rank-percent {
+            font-weight: bold;
+        }
+        .encounter-rank-value {
+            font-size: 10px;
+            vertical-align: 2px;
+            margin-left: 4px;
+        }
+    }
+    .encounter-damage {
+        @extend .encounter-col;
+        width: 15%;
+        text-align: center;
+    }   
+    .encounter-duration {
+        @extend .encounter-col;
+        width: 10%;
+        text-align: center;
+    }
+    .encounter-date {
+        @extend .encounter-col;
+        width: 15%;
+        text-align: center;
+    }
+    &.head {
+        border-bottom: 1px solid $fg-color;
+        .encounter-col {
+            font-weight: bold;
+        }
+    }
+}

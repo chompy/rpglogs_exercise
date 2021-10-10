@@ -1,0 +1,20 @@
+.panel {
+    background-color: $panel-bg-color;
+    border: 1px solid $border-color;
+    margin-bottom: 10px;
+    min-height: 96px;
+
+    &.loading {
+        background-image: url("/img/load.gif");
+        background-repeat: no-repeat;
+        background-position: center center;
+        .panel-body {
+            height: 1px;
+        }
+    }
+
+    .panel-body {
+        margin: 10px;
+        transition: height linear 1s;
+    }
+}

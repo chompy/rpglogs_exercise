@@ -1,0 +1,42 @@
+# https://gitlab.com/contextualcode/platform_cc
+
+name: "nathan-rpglogs"
+type: "php:7.4"
+dependencies:
+    php:
+        composer/composer: "^2"
+build:
+    flavor: "composer"
+relationships:
+    database: "database:mysql"
+    cache: "cache:redis"
+variables:
+    env:
+        NVM_VERSION: "v0.36.0"
+        NODE_VERSION: !include
+            type: "string"
+            path: ".nvmrc"
+
+web:
+    locations:
+        "/":
+            root: "public"
+            index:
+                - "index.php"
+            allow: true
+            passthru: "/index.php"
+disk: 2048
+hooks:
+    build: |
+        . .platformsh-utils/nodejs-versions/install.sh
+        nvm install $NODE_VERSION
+runtime:
+    extensions:
+        - "redis"
+mounts:
+    "/storage/app/public": "shared:files/app-public"
+    "/storage/framework/views": "shared:files/framework-views"
+    "/storage/framework/sessions": "shared:files/framework-sessions"
+    "/storage/framework/cache": "shared:files/framework-cache"
+    "/storage/logs": "shared:files/logs"
+    "/bootstrap/cache": "shared:files/bootstrap_cache"
