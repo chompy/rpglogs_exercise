@@ -1,0 +1,29 @@
+
+#head {
+    padding: 8px 10px;
+    margin-bottom: 15px;
+    background-color: $panel-bg-color;
+    border-bottom: 1px solid $border-color;
+
+    a.title {
+        font-size: 20px;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .left {
+        display: inline-block;
+    }
+
+    .right {
+        float: right;
+
+        img {
+            width: 20px;
+            padding: 3px;
+            background-color: $fg-color;
+            border-radius: 6px;
+        }
+
+    }
+}

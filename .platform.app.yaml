@@ -28,6 +28,7 @@ hooks:
     build: |
         . .platformsh-utils/nodejs-versions/install.sh
         nvm install $NODE_VERSION
+        cp .env.example .env
         composer install --no-dev
 runtime:
     extensions:

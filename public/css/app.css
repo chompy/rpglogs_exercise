@@ -508,6 +508,30 @@ th {
   transition: height linear 1s;
 }
 
+#head {
+  padding: 8px 10px;
+  margin-bottom: 15px;
+  background-color: #001a31;
+  border-bottom: 1px solid #343434;
+}
+#head a.title {
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: none;
+}
+#head .left {
+  display: inline-block;
+}
+#head .right {
+  float: right;
+}
+#head .right img {
+  width: 20px;
+  padding: 3px;
+  background-color: #e7e7e7;
+  border-radius: 6px;
+}
+
 form input[type=text] {
   height: 28px;
   background-color: #e7e7e7;
@@ -639,18 +663,6 @@ html, body {
 a, a:visited, a:hover, a:active, a:focus {
   color: #e7e7e7;
   text-decoration: underline;
-}
-
-#head {
-  padding: 3px 10px;
-  margin-bottom: 15px;
-  background-color: #001a31;
-  border-bottom: 1px solid #343434;
-}
-#head a.title {
-  font-size: 20px;
-  font-weight: bold;
-  text-decoration: none;
 }
 
 #app {
