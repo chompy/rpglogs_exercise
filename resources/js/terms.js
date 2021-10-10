@@ -4,6 +4,10 @@ export const formCharacterName = 'Character Name';
 export const formServerName = 'Server Name';
 export const formRegionName = 'Region';
 
+// previous queries
+export const previousQueryTitle = 'Previous Queries';
+export const previousQueryNoResults = 'Enter your character information to see your more recent parses.';
+
 // parse table head
 export const parseEncounterName = 'Raid';
 export const parseClass = 'Job';

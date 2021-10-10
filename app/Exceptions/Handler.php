@@ -6,11 +6,9 @@ use ArgumentCountError;
 use Exception;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Http\Request;
 use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -48,8 +46,21 @@ class Handler extends ExceptionHandler
                     ];
                 }
                 // api error
-                if ($exception instanceof RPGLogsResponseException) {
+                if ($exception instanceof ConnectorResponseException) {
                     $response['message'] = 'API error';
+                    switch ($exception->response->status())
+                    {
+                        case Response::HTTP_NOT_FOUND:
+                        {
+                            $response['message'] = 'Not found';
+                            break;   
+                        }
+                        case Response::HTTP_BAD_REQUEST:
+                        {
+                            $response['message'] = 'One or more fields are incorrect';
+                            break;   
+                        }
+                    }               
 
                 // missing params
                 } elseif (

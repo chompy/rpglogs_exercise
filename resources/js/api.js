@@ -14,6 +14,20 @@ export function fetchCharacterParses(character, server, region)
     ;
 }
 
+export function fetchCharacterParsesHistory()
+{
+    apiLoad();
+    fetch(
+        '/api/character-parses-history'
+    )
+        .then(res => res.json())
+        .then(
+            (result) => { apiSuccess(result); },
+            (error) => { apiError(error); }
+        )
+    ;
+}
+
 function apiLoad()
 {
     window.dispatchEvent(new CustomEvent('api:load'));

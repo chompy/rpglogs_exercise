@@ -31,6 +31,7 @@ class FetchLodestoneAvatarCommand extends Command
     public function __construct(
         FFXIVLodestoneConnector $lodestoneConnector
     ) {
+        parent::__construct();
         $this->lodestoneConnector = $lodestoneConnector;
     }
 

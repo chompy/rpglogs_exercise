@@ -59,6 +59,10 @@ export default class Results extends Component
             {
                 return <ResultsCharacterParses data={this.state.results.data}></ResultsCharacterParses>;
             }
+            case 'character_parses_history':
+            {
+                return <ResultsPreviousQueries data={this.state.results.data}></ResultsPreviousQueries>;
+            }
         }
     }
 

@@ -2,12 +2,7 @@
 
 namespace App\Connectors;
 
-use App\Exceptions\RPGLogsResponseException;
-use Illuminate\Http\Client\Response;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Http;
-
 class RPGLogsConnector extends AbstractConnector
 {
 

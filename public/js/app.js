@@ -2063,11 +2063,22 @@ module.exports = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "fetchCharacterParses": () => (/* binding */ fetchCharacterParses)
+/* harmony export */   "fetchCharacterParses": () => (/* binding */ fetchCharacterParses),
+/* harmony export */   "fetchCharacterParsesHistory": () => (/* binding */ fetchCharacterParsesHistory)
 /* harmony export */ });
 function fetchCharacterParses(character, server, region) {
   apiLoad();
   fetch('/api/character-parses?character=' + character + '&server=' + server + '&region=' + region).then(function (res) {
+    return res.json();
+  }).then(function (result) {
+    apiSuccess(result);
+  }, function (error) {
+    apiError(error);
+  });
+}
+function fetchCharacterParsesHistory() {
+  apiLoad();
+  fetch('/api/character-parses-history').then(function (res) {
     return res.json();
   }).then(function (result) {
     apiSuccess(result);
@@ -2149,7 +2160,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var _character_parse_form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./character_parse_form */ "./resources/js/components/character_parse_form.js");
 /* harmony import */ var _results__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./results */ "./resources/js/components/results.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../api */ "./resources/js/api.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2175,8 +2187,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
- //import { BrowserRouter, Route, Switch } from 'react-router-dom'
-//import Header from './Header'
+
 
 
 
@@ -2195,9 +2206,9 @@ var App = /*#__PURE__*/function (_Component) {
   _createClass(App, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
         className: "row",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_character_parse_form__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_results__WEBPACK_IMPORTED_MODULE_3__["default"], {})]
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_character_parse_form__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_results__WEBPACK_IMPORTED_MODULE_3__["default"], {})]
       });
     }
   }]);
@@ -2205,7 +2216,9 @@ var App = /*#__PURE__*/function (_Component) {
   return App;
 }(react__WEBPACK_IMPORTED_MODULE_0__.Component);
 
-react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(App, {}), document.getElementById('app'));
+react_dom__WEBPACK_IMPORTED_MODULE_1__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(App, {}), document.getElementById('app'), function () {
+  (0,_api__WEBPACK_IMPORTED_MODULE_4__.fetchCharacterParsesHistory)();
+});
 
 /***/ }),
 
@@ -2827,6 +2840,13 @@ var Results = /*#__PURE__*/function (_Component) {
               data: this.state.results.data
             });
           }
+
+        case 'character_parses_history':
+          {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_results_previous_queries__WEBPACK_IMPORTED_MODULE_3__["default"], {
+              data: this.state.results.data
+            });
+          }
       }
     }
   }, {
@@ -3056,7 +3076,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ ResultsPreviousQueries)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../api */ "./resources/js/api.js");
+/* harmony import */ var _terms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../terms */ "./resources/js/terms.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -3080,7 +3102,10 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 
+
+
 /** Display previous queries. */
+
 
 
 
@@ -3090,19 +3115,64 @@ var ResultsPreviousQueries = /*#__PURE__*/function (_Component) {
   var _super = _createSuper(ResultsPreviousQueries);
 
   function ResultsPreviousQueries(props) {
+    var _this;
+
     _classCallCheck(this, ResultsPreviousQueries);
 
-    return _super.call(this, props);
+    _this = _super.call(this, props);
+    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(ResultsPreviousQueries, [{
+    key: "handleClick",
+    value: function handleClick(event) {
+      event.preventDefault();
+      (0,_api__WEBPACK_IMPORTED_MODULE_1__.fetchCharacterParses)(event.target.getAttribute('data-character'), event.target.getAttribute('data-server'), event.target.getAttribute('data-region'));
+    }
+  }, {
+    key: "renderPreviousQueries",
+    value: function renderPreviousQueries() {
+      var out = [];
+
+      for (var i in this.props.data) {
+        var item = this.props.data[i];
+        var key = 'history_' + i;
+        out.push( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("a", {
+          href: "#",
+          className: "previous-query",
+          "data-character": item.character_name,
+          "data-server": item.server_name,
+          "data-region": item.server_region,
+          onClick: this.handleClick,
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
+            src: item.avatar_url,
+            alt: item.character_name
+          }), item.character_name, " / ", item.server_name, " / ", item.server_region]
+        }, key));
+      }
+
+      return out;
+    }
+  }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      if (this.props.data.length == 0) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "results previous-queries",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h3", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("em", {
+              children: _terms__WEBPACK_IMPORTED_MODULE_2__.previousQueryNoResults
+            })
+          })
+        });
+      }
+
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "results previous-queries",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("em", {
-          children: "Blah blah blah."
-        })
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h3", {
+          children: "Previous Queries"
+        }), this.renderPreviousQueries()]
       });
     }
   }]);
@@ -3126,6 +3196,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "formCharacterName": () => (/* binding */ formCharacterName),
 /* harmony export */   "formServerName": () => (/* binding */ formServerName),
 /* harmony export */   "formRegionName": () => (/* binding */ formRegionName),
+/* harmony export */   "previousQueryTitle": () => (/* binding */ previousQueryTitle),
+/* harmony export */   "previousQueryNoResults": () => (/* binding */ previousQueryNoResults),
 /* harmony export */   "parseEncounterName": () => (/* binding */ parseEncounterName),
 /* harmony export */   "parseClass": () => (/* binding */ parseClass),
 /* harmony export */   "parseRank": () => (/* binding */ parseRank),
@@ -3140,7 +3212,10 @@ __webpack_require__.r(__webpack_exports__);
 // form labels
 var formCharacterName = 'Character Name';
 var formServerName = 'Server Name';
-var formRegionName = 'Region'; // parse table head
+var formRegionName = 'Region'; // previous queries
+
+var previousQueryTitle = 'Previous Queries';
+var previousQueryNoResults = 'Enter your character information to see your more recent parses.'; // parse table head
 
 var parseEncounterName = 'Raid';
 var parseClass = 'Job';

@@ -618,6 +618,18 @@ form .error-message.has-error {
   font-weight: bold;
 }
 
+.results.previous-queries a.previous-query {
+  display: block;
+  margin-bottom: 5px;
+}
+.results.previous-queries a.previous-query img {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #343434;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
 html, body {
   font-family: sans-serif;
   background: #1c1c1c;

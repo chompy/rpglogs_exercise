@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import CharacterParseForm from './character_parse_form';
 import Results from './results';
-//import { BrowserRouter, Route, Switch } from 'react-router-dom'
-//import Header from './Header'
+import { fetchCharacterParsesHistory } from '../api';
 
 class App extends Component
 {
@@ -18,4 +17,10 @@ class App extends Component
 
 }
 
-ReactDOM.render(<App />, document.getElementById('app'))
+ReactDOM.render(
+    <App />, 
+    document.getElementById('app'),
+    function() {
+        fetchCharacterParsesHistory();
+    }
+);

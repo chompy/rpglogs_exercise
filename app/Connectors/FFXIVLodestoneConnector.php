@@ -2,10 +2,7 @@
 
 namespace App\Connectors;
 
-use Illuminate\Http\Client\Response;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Http;
 
 class FFXIVLodestoneConnector extends AbstractConnector
 {

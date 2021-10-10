@@ -1,0 +1,13 @@
+.results.previous-queries {
+    a.previous-query {
+        display: block;
+        margin-bottom: 5px;
+        img {
+            width: 32px;
+            height: 32px;
+            border: 1px solid $border-color;
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+    }
+}

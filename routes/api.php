@@ -15,4 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/character-parses', [AppApiController::class, 'characterParses']);
+Route::get('/character-parses-history', [AppApiController::class, 'characterParsesHistory']);
 
