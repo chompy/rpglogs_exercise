@@ -5,8 +5,6 @@ type: "php:7.4"
 dependencies:
     php:
         composer/composer: "^2"
-build:
-    flavor: "composer"
 relationships:
     database: "database:mysql"
     cache: "cache:redis"
@@ -30,6 +28,7 @@ hooks:
     build: |
         . .platformsh-utils/nodejs-versions/install.sh
         nvm install $NODE_VERSION
+        composer install --no-dev
 runtime:
     extensions:
         - "redis"
