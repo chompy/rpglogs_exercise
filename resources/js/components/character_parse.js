@@ -1,8 +1,16 @@
 import React, { Component } from 'react'
 
+const parseReportUrlPrefix = 'https://www.fflogs.com/reports/';
+
 /** Display parse results of an encounter. */
 export default class CharacterParse extends Component
 {
+
+    constructor(props)
+    {
+        super(props);
+        this.handleClick = this.handleClick.bind(this);
+    }
 
     getBossIcon()
     {
@@ -57,10 +65,19 @@ export default class CharacterParse extends Component
         return 'parse-rank-percent common';
     }
 
+    handleClick(event)
+    {
+        event.preventDefault();
+        window.open(
+            parseReportUrlPrefix + this.props.data.reportID,
+            '_blank'
+        );
+    }
+
     render()
     {
         return <div className="parse row">
-            <div className="parse-encounter-name" title={this.props.data.encounterName}>
+            <div className="parse-encounter-name" onClick={this.handleClick} title={this.props.data.encounterName}>
                 <img
                     className="encounter-icon"
                     src={this.getBossIcon()} 
@@ -69,20 +86,20 @@ export default class CharacterParse extends Component
                 />
                 {this.props.data.encounterName}
             </div>
-            <div className="parse-class">
+            <div className="parse-class" onClick={this.handleClick}>
                 <img className="class-icon" src={this.getClassIcon()} alt={this.props.data.spec} title={this.props.data.spec} />
             </div>
-            <div className="parse-rank">
+            <div className="parse-rank" onClick={this.handleClick}>
                 <span className={this.parsePercentClassName()} title={this.getPercentile() + '%'}>{this.getPercentile()}</span>
                 <span className="parse-rank-value" title={this.getRank()}>({this.getRank()})</span>
             </div>
-            <div className="parse-damage" title={this.props.data.total.toFixed(1)}>
+            <div className="parse-damage" title={this.props.data.total.toFixed(1)} onClick={this.handleClick}>
                 {this.props.data.total.toFixed(1)}
             </div>
-            <div className="parse-duration" title={this.getDuration()}>
+            <div className="parse-duration" title={this.getDuration()} onClick={this.handleClick}>
                 {this.getDuration()}
             </div>
-            <div className="parse-date" title={this.getDate()}>
+            <div className="parse-date" title={this.getDate()} onClick={this.handleClick}>
                 {this.getDate()}
             </div>
         </div>;

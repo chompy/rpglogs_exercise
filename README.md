@@ -4,9 +4,10 @@ This is the take-home coding exercise for the RPGLogs Full Stack Developer inter
 For this exercise I choose to source my data from FFLogs as opposed to WarcraftLogs as I'm intimately familar with FFLogs.
 
 
+
 ## Run Locally With Docker + Platform.CC
 
-For local development I use a tool I built called Platform.CC. All the nessacary files have been included to run this application through Platform.CC.
+For local development I use a tool I built called Platform.CC. All the nessacary files have been included to run this application with Platform.CC.
 
 1. Run `curl -L -s https://platform.cc/releases/install.sh | bash /dev/stdin`
 2. Run `pcc var:set env:RPGLOGS_KEY {your api key here}` , replace `{your api key here}` with your RPGLogs API key.

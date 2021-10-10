@@ -30,6 +30,8 @@ hooks:
         nvm install $NODE_VERSION
         cp .env.example .env
         composer install --no-dev
+        php artisan key:generate
+        php artisan migrate:fresh
 runtime:
     extensions:
         - "redis"

@@ -591,6 +591,7 @@ form .error-message.has-error {
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 32px;
+  cursor: pointer;
 }
 .parse .parse-encounter-name {
   width: 25%;

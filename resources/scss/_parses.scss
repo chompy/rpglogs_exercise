@@ -6,6 +6,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         line-height: 32px;
+        cursor: pointer;
     }
     .parse-encounter-name {
         @extend .parse-col;

@@ -2392,20 +2392,24 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 
+
+
+var parseReportUrlPrefix = 'https://www.fflogs.com/reports/';
 /** Display parse results of an encounter. */
-
-
-
 
 var CharacterParse = /*#__PURE__*/function (_Component) {
   _inherits(CharacterParse, _Component);
 
   var _super = _createSuper(CharacterParse);
 
-  function CharacterParse() {
+  function CharacterParse(props) {
+    var _this;
+
     _classCallCheck(this, CharacterParse);
 
-    return _super.apply(this, arguments);
+    _this = _super.call(this, props);
+    _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(CharacterParse, [{
@@ -2466,12 +2470,19 @@ var CharacterParse = /*#__PURE__*/function (_Component) {
       return 'parse-rank-percent common';
     }
   }, {
+    key: "handleClick",
+    value: function handleClick(event) {
+      event.preventDefault();
+      window.open(parseReportUrlPrefix + this.props.data.reportID, '_blank');
+    }
+  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
         className: "parse row",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
           className: "parse-encounter-name",
+          onClick: this.handleClick,
           title: this.props.data.encounterName,
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
             className: "encounter-icon",
@@ -2481,6 +2492,7 @@ var CharacterParse = /*#__PURE__*/function (_Component) {
           }), this.props.data.encounterName]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
           className: "parse-class",
+          onClick: this.handleClick,
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
             className: "class-icon",
             src: this.getClassIcon(),
@@ -2489,6 +2501,7 @@ var CharacterParse = /*#__PURE__*/function (_Component) {
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
           className: "parse-rank",
+          onClick: this.handleClick,
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
             className: this.parsePercentClassName(),
             title: this.getPercentile() + '%',
@@ -2501,14 +2514,17 @@ var CharacterParse = /*#__PURE__*/function (_Component) {
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
           className: "parse-damage",
           title: this.props.data.total.toFixed(1),
+          onClick: this.handleClick,
           children: this.props.data.total.toFixed(1)
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
           className: "parse-duration",
           title: this.getDuration(),
+          onClick: this.handleClick,
           children: this.getDuration()
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
           className: "parse-date",
           title: this.getDate(),
+          onClick: this.handleClick,
           children: this.getDate()
         })]
       });
