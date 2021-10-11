@@ -13,15 +13,15 @@ I used MySQL and Redis with this application because they would likely have been
 For local development I use a tool I built called Platform.CC. All the nessacary files have been included to run this application with Platform.CC.
 
 1. Run `curl -L -s https://platform.cc/releases/install.sh | bash /dev/stdin`
-2. Run `pcc var:set env:RPGLOGS_KEY {your api key here}` , replace `{your api key here}` with your RPGLogs API key.
-3. Run `pcc p:start`
+2. Run `~/.pcc/pcc var:set env:RPGLOGS_KEY {your api key here}` , replace `{your api key here}` with your RPGLogs API key.
+3. Run `~/.pcc/pcc p:start`
 4. Navigate to `http://rpglogs-exercise-ogden-tech.platform.cc/` in your browser.
-5. When you are done you can run `pcc all:purge` to stop the containers and delete all data.
+5. When you are done you can run `~/.pcc/pcc all:purge` to stop the containers and delete all data.
 
 
 ## Online Demo
 
-Additionally I am hosting a demo on this application at `https://rpglogs-exercise.ogden-tech`.
+Additionally I am hosting a demo on this application at https://rpglogs-exercise.ogden.tech.
 
 
 ## Relevant Code
