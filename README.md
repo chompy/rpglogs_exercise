@@ -3,7 +3,9 @@
 This is the take-home coding exercise for the RPGLogs Full Stack Developer interview as completed by me, Nathan Ogden.
 For this exercise I choose to source my data from FFLogs as opposed to WarcraftLogs as I'm intimately familar with FFLogs.
 
-This was my first time using Laravel so that slowed me down a little bit. I am however very familar and comfortable with Symfony and there were quite a few similarities, both of them are MVC frameworks afterall. 
+This was my first time using Laravel so that slowed me down a little bit. I am however very familar and comfortable with Symfony and there were quite a few similarities, both of them are MVC frameworks afterall.
+
+I used MySQL and Redis with this application because they would likely have been used in a real world scenario where scalability is important. If I was creating this as a small personal project I would have went with Sqlite for the database and possibly just file system level caching.
 
 
 ## Run Locally With Docker + Platform.CC
